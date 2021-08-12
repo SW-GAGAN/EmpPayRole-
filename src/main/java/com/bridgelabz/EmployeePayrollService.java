@@ -23,11 +23,11 @@ public class EmployeePayrollService {
      *Data Stored in Name,Id,Salary
      */
     private void readEmployeePayrollData(Scanner consoleInputReader) {
-        System.out.println("Please enter employee name");
+        System.out.println("Please enter Employee Name");
         String name = consoleInputReader.nextLine();
-        System.out.println("Please enter employee ID");
+        System.out.println("Please enter Employee ID");
         int id = consoleInputReader.nextInt();
-        System.out.println("Please enter employee salary");
+        System.out.println("Please enter Employee Salary");
         double salary = consoleInputReader.nextDouble();
 
         employeePayrollList.add(new EmployeePayrollData(id, name, salary));
@@ -44,7 +44,7 @@ public class EmployeePayrollService {
      * main method
      */
     public static void main(String[] args) {
-        System.out.println("Welcome to Employee Payroll service program!");
+        System.out.println("Welcome to Employee Payroll service program !");
         ArrayList<EmployeePayrollData> employeePayrollList = new ArrayList<EmployeePayrollData>();
         EmployeePayrollService employeePayrollService = new EmployeePayrollService(employeePayrollList);
         Scanner consoleInputReader = new Scanner(System.in);
