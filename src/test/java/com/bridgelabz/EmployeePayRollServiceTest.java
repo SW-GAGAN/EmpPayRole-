@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 public class EmployeePayRollServiceTest {
+
+    /**
+     * Test written to match employee entries when written to file
+     */
     @Test
     public void given3Employees_WhenWriitenToFile_ShouldMatchEmployeeEntries() {
         EmployeePayrollData[] arrayOfEmployees = {
@@ -18,6 +22,18 @@ public class EmployeePayRollServiceTest {
         employeePayrollService.printData(EmployeePayrollService.IOService.FILE_IO);
         long entries = employeePayrollService.countEntries(EmployeePayrollService.IOService.FILE_IO);
         System.out.println("No.of entries into file are: " + entries);
+
+        Assertions.assertEquals(3, entries);
+    }
+
+    /**
+     * Test written to match match count entries by reading file
+     */
+    @Test
+    public void givenFile_OnReadingFromFile_ShouldMatchEmployeeCount() {
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        employeePayrollService.readDataFromFile(EmployeePayrollService.IOService.FILE_IO);
+        long entries = employeePayrollService.countEntries(EmployeePayrollService.IOService.FILE_IO);
 
         Assertions.assertEquals(3, entries);
     }

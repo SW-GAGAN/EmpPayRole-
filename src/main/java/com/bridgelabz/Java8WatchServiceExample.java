@@ -10,19 +10,35 @@ import static java.nio.file.StandardWatchEventKinds.*;
 
 public class Java8WatchServiceExample {
     private final WatchService watcher;
+
+    // Created a Map passing watchkey and path
     private final Map<WatchKey, Path> dirWatchers;
 
+    /**
+     * @param dir
+     * @throws IOException
+     */
     Java8WatchServiceExample(Path dir) throws IOException {
         this.watcher = FileSystems.getDefault().newWatchService();
         this.dirWatchers = new HashMap<>();
         scanAndRegisterDirectories(dir);
     }
 
+    /**
+     * Registering the activities that need to be kept tracked
+     *
+     * @param dir
+     * @throws IOException
+     */
     private void registerDirectories(Path dir) throws IOException {
         WatchKey key = dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
         dirWatchers.put(key, dir);
     }
 
+    /**
+     * @param start
+     * @throws IOException
+     */
     private void scanAndRegisterDirectories(final Path start) throws IOException {
         Files.walkFileTree(start, new SimpleFileVisitor<Path>() {
             @Override
@@ -39,7 +55,7 @@ public class Java8WatchServiceExample {
             WatchKey key = null;
             try {
                 key = watcher.take();
-            }catch (InterruptedException x) {
+            } catch (InterruptedException x) {
                 x.printStackTrace();
             }
             Path dir = dirWatchers.get(key);
@@ -53,7 +69,8 @@ public class Java8WatchServiceExample {
                 if (kind == ENTRY_CREATE) {
                     try {
                         if (Files.isDirectory(child)) scanAndRegisterDirectories(child);
-                    } catch (IOException x) {}
+                    } catch (IOException x) {
+                    }
                 } else if (kind.equals(ENTRY_DELETE)) {
                     if (Files.isDirectory(child)) dirWatchers.remove(key);
                 }

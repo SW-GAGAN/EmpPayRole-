@@ -13,6 +13,9 @@ public class NIOFileAPITest {
     private static String HOME = System.getProperty("user.home");
     private static String PLAY_WITH_NIO = "TempPlayGround";
 
+    /**
+     * @throws IOException
+     */
     @Test
     public void GivenPathWhen_CheckedThenConfirm() throws  IOException{
         Path homePath = Paths.get(HOME);
@@ -41,6 +44,9 @@ public class NIOFileAPITest {
                 .forEach(System.out::println);
     }
 
+    /**
+     * @throws IOException
+     */
     @Test
     void GivenDirectoryWhenWatched_ListsAllTheActivites() throws IOException {
         Path dir = Paths.get(HOME + "/" + PLAY_WITH_NIO);
